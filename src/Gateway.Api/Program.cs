@@ -61,8 +61,11 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline
-// IMPORTANTE: Swagger deve ser configurado ANTES do proxy reverso
-// para que as rotas do Swagger não sejam interceptadas pelo proxy
+// IMPORTANTE: A ordem do middleware é crítica para o funcionamento correto do gateway
+// 1. Health check e rotas locais devem ser mapeadas primeiro
+// 2. Swagger middleware para servir documentação
+// 3. Controllers locais (SwaggerController) devem ser mapeados antes do proxy
+// 4. Reverse Proxy por último, para não interceptar rotas locais
 
 // Health check endpoint (mapear antes do proxy)
 app.MapGet("/health", () => Results.Ok(new { status = "Healthy", service = "Gateway API" }));
@@ -90,10 +93,13 @@ app.UseSwaggerUI(options =>
     options.DisplayRequestDuration(); // Mostra o tempo de requisição
 });
 
-// Map reverse proxy (deve vir DEPOIS do Swagger para não interceptar as rotas do Swagger)
-app.MapReverseProxy();
-
+// Map controllers (SwaggerController) ANTES do reverse proxy
+// Isso garante que rotas locais não sejam interceptadas pelo proxy
 app.MapControllers();
+
+// Map reverse proxy por último - roteia requisições para APIs backend
+// Rotas que não foram capturadas pelos controllers acima serão roteadas pelo proxy
+app.MapReverseProxy();
 
 app.Run();
 

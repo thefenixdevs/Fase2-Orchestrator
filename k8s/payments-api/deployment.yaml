@@ -17,6 +17,18 @@ spec:
         app: payments-api
         component: worker
     spec:
+      initContainers:
+      - name: wait-for-rabbitmq
+        image: busybox:1.36
+        command:
+        - sh
+        - -c
+        - |
+          until nc -z rabbitmq-service 5672; do
+            echo "Waiting for rabbitmq-service..."
+            sleep 2
+          done
+          echo "RabbitMQ is ready!"
       containers:
       - name: payments-api
         image: payments-api:latest

@@ -76,7 +76,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - pg_isready -U admin
+            - pg_isready -U admin -d postgres
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
@@ -86,7 +86,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - pg_isready -U admin
+            - pg_isready -U admin -d postgres
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 3
@@ -102,3 +102,7 @@ spec:
       - name: postgres-storage
         persistentVolumeClaim:
           claimName: postgres-catalog-pvc
+      - name: init-script
+        configMap:
+          name: postgres-catalog-init-script
+          defaultMode: 0755
