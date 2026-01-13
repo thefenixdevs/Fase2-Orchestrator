@@ -74,7 +74,7 @@ function Build-Image {
 }
 
 # 1. UsersAPI
-$usersApiContext = Join-Path $baseDir "Fase2-UsersAPI\src"
+$usersApiContext = Join-Path $baseDir "Fase2-UsersAPI"
 $usersApiDockerfile = Join-Path $usersApiContext "Dockerfile"
 if (-not (Build-Image -ServiceName "1. UsersAPI" -ImageName "usersapi-api" -ImageTag "8" -DockerfilePath $usersApiDockerfile -BuildContext $usersApiContext)) {
     $errors += "UsersAPI"

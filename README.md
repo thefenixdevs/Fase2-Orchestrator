@@ -89,7 +89,7 @@ Se preferir construir manualmente:
 
 #### UsersAPI
 ```powershell
-cd ..\Fase2-UsersAPI\src
+cd ..\Fase2-UsersAPI
 docker build -t usersapi-api:8 -f Dockerfile .
 ```
 
