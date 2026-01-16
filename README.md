@@ -46,7 +46,7 @@ Fase2-Orchestrator/
 │   │   ├── pvc.yaml
 │   │   ├── configmap.yaml
 │   │   └── secret.yaml
-│   ├── ingress.yaml                      # Ingress (opcional)
+│   ├── ingress.yaml                      # Ingress
 │   ├── kustomization.yaml                # Kustomize para deploy simplificado
 │   └── README.md                         # Documentação completa
 └── README.md                             # Este arquivo
