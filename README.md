@@ -1,11 +1,22 @@
 # Fase2-Orchestrator - Orquestração Kubernetes
 
-Este repositório contém todos os manifestos Kubernetes necessários para orquestrar os 4 microsserviços da FIAP Cloud Games (FCG) em um cluster Kubernetes local (Docker Desktop).
+Este repositório contém o **Gateway (YARP)**, manifestos Kubernetes locais (`k8s/`) e a **plataforma AWS Fase 4**: Terraform, Helm (`fcg-platform`), GitOps (Argo CD) e scripts de validação.
+
+Para deploy na AWS:
+- 📘 [docs/DEPLOY-AUTOMATIC.md](docs/DEPLOY-AUTOMATIC.md) — fluxo automático ponta-a-ponta
+- 📋 [docs/MANUAL-STEPS.md](docs/MANUAL-STEPS.md) — checklist do que precisa ser feito à mão (uma única vez)
+- 🎯 [docs/FASE4-COMPLIANCE.md](docs/FASE4-COMPLIANCE.md) — mapa de cumprimento dos requisitos do Tech Challenge
+- 📐 [docs/AWS-PLATFORM.md](docs/AWS-PLATFORM.md) — visão geral da arquitetura
 
 ## Estrutura
 
 ```
 Fase2-Orchestrator/
+├── infra/terraform/aws/     # Fase 4 AWS (EKS, ECR, dados gerenciados)
+├── deploy/helm/fcg-platform/ # Chart Helm de produção (Argo CD)
+├── gitops/argocd/           # Projeto e Application Argo CD
+├── scripts/                 # smoke-test.ps1 (ALB)
+├── src/                     # Gateway.Api (.NET)
 ├── k8s/
 │   ├── namespace.yaml                    # Namespace único para todos os serviços
 │   ├── configmap.yaml                    # Configurações compartilhadas (RabbitMQ, etc)

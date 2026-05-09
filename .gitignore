@@ -361,3 +361,25 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Terraform
+# Commit .terraform.lock.hcl (dependency lockfile); ignore the rest.
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+*.tfplan
+tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+# Local tfvars (commit only the .example)
+*.auto.tfvars
+*.auto.tfvars.json
+infra/terraform/bootstrap/environments/*.tfvars
+!infra/terraform/bootstrap/environments/*.tfvars.example
